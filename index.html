@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yawk Digital - Brand Strategy & Digital Marketing Agency</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Yawk Digital Brand (Dark Charcoal: #262626, Accent Red: #E53935, Accent Purple: #8E24AA, Soft Off-White: #F8F5F2) -->
+    <!-- Website Structure Plan: A single-page website with a clear, navigable section-based layout (Hero, About, Services, Portfolio, Impact, Why Us, Insights/Blog, Contact). Each section is a distinct visual block. The design prioritizes outstanding visual appeal, dynamic animations, generous whitespace, and clear calls-to-action. Services, Why Us reasons, and Blog posts feature click-to-reveal full-screen overlays for detailed content, simulating new pages. -->
+    <!-- Visualization & Content Choices: Report Info: Yawk Digital Agency Website. Goal: Create an outstanding, highly visual, dynamic, and lead-generating online presence competing with industry leaders. Viz/Presentation Method:
+        - **Hero Section:** Auto-scrolling *three* custom, highly complex, and artistically designed SVG background images (embedded as data URIs) with synchronized text transitions for a visually unique and animated first impression. These SVGs feature intricate patterns and continuous animations.
+        - **Services Section:** Custom-designed abstract SVG icons (embedded as data URIs) for each service. Paired with complex 3D tilt, scale, and glow hover animations. Each service card triggers a full-screen dynamic overlay on click for detailed content.
+        - **Portfolio Highlights:** Maintained clean cards, direct links to client websites.
+        - **Impact Section:** Features animated numerical counters. Icons are custom-designed abstract SVG graphics (embedded as data URIs).
+        - **Why Choose Us Section:** Custom-designed abstract SVG graphics (embedded as data URIs) for icons, with elegant hover animations *and continuous subtle float animations*. Each reason card triggers a full-screen dynamic overlay for detailed content.
+        - **Insights/Blog Section:** Grid of placeholder blog post cards, with optimized `placehold.co` images. Each blog card triggers a full-screen dynamic overlay.
+        - **Overall Design:** New color palette from Yawk Digital logo. Enhanced spacing, more pronounced shadows, extensive subtle transitions and CSS animations throughout the site, refined typography for a luxurious, modern, and aesthetic feel.
+    Interaction: Smooth scrolling navigation. Advanced hover animations. Dynamic full-screen overlays for service/reason/blog details. Global scroll-triggered animations for sections (fade-in/slide-up). Hero carousel with text animations. Animated counters. Continuous subtle icon animations in "Why Choose Us" section.
+    Library/Method: Pure HTML & extensively customized Tailwind CSS. JavaScript for dynamic service detail overlays, scroll animations, hero carousel, and number counters. **No `imagen` API calls used for any images.** -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        /* Base Body and Typography */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F5F2; /* Soft Off-white background */
+            color: #262626; /* Dark Charcoal text from logo */
+            line-height: 1.85; /* Increased line height for luxurious feel */
+            font-weight: 300;
+            letter-spacing: 0.015em; /* Subtle letter spacing for elegance */
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #262626; /* Dark Charcoal for headings */
+            line-height: 1.18; /* Refined line height for headings */
+            font-weight: 800; /* Extra bold for impact */
+            letter-spacing: -0.035em; /* Slightly tighter for headings for elegance */
+        }
+        h1 {
+            font-weight: 900; /* Even heavier weight for ultimate impact */
+            letter-spacing: -0.05em; /* Tighter for the main title */
+        }
+        strong {
+            font-weight: 700; /* Consistent strong weight */
+        }
+
+        /* General Section Styling */
+        .section-padding {
+            padding: 7rem 1.5rem; /* Even more generous padding for sections */
+            max-width: 1200px; /* Max width for content */
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            opacity: 0; /* Initial state for scroll animation */
+            transform: translateY(30px); /* Initial state for scroll animation */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Smooth transition */
+        }
+        .section-padding.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 5rem; /* More space below headings */
+            color: #262626; /* Dark Charcoal */
+        }
+        .accent-red {
+            color: #E53935; /* Accent Red from logo */
+        }
+        .accent-purple {
+            color: #8E24AA; /* Accent Purple from logo */
+        }
+        .bg-primary-light {
+            background-color: #FDFBF8; /* Light background for sections */
+        }
+
+        /* Navigation Header */
+        .navigation {
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 1rem 0;
+            transition: all 0.3s ease-in-out;
+        }
+        .navigation a {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #262626;
+            transition: color 0.2s ease-in-out;
+        }
+        .navigation a:hover {
+            color: #E53935; /* Red accent on hover */
+        }
+        .navigation .logo-text {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 900;
+            color: #E53935; /* Red for logo text */
+            transition: color 0.2s ease-in-out;
+        }
+        .navigation .logo-text:hover {
+            color: #8E24AA; /* Purple on hover */
+        }
+
+
+        /* Hero Section Specific Styles */
+        .hero-section {
+            background: linear-gradient(145deg, #262626 0%, #1a1a1a 100%); /* Deep dark charcoal gradient */
+            color: #FFFFFF;
+            padding: 10rem 1.5rem; /* Very generous padding for hero */
+            min-height: 90vh; /* Minimum height for hero */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            border-bottom-left-radius: 3rem; /* Unique border radius */
+            border-bottom-right-radius: 3rem;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3); /* Add shadow to hero bottom */
+        }
+        .hero-carousel-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .hero-carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out; /* Smooth fade transition */
+            filter: brightness(0.6) blur(3px); /* Darken and blur images */
+            transform: scale(1.05); /* Slight zoom for dynamism */
+            animation: heroImagePan 24s linear infinite alternate; /* Slower pan effect */
+        }
+        .hero-carousel-image:nth-child(1) { animation-delay: 0s; }
+        .hero-carousel-image:nth-child(2) { animation-delay: 8s; }
+        .hero-carousel-image:nth-child(3) { animation-delay: 16s; }
+
+        @keyframes heroImagePan {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .hero-carousel-image.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .hero-image-loading { /* Loading indicator for hero images (will be hidden as static) */
+            display: none !important;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .hero-headline, .hero-subheadline {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s; /* Delay for text animation */
+        }
+        .hero-headline.active, .hero-subheadline.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #E53935 0%, #8E24AA 100%); /* Red to Purple Gradient CTA */
+            color: white;
+            font-size: 1.35rem;
+            font-weight: 700;
+            padding: 1.4rem 4rem;
+            border-radius: 9999px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-decoration: none;
+            position: relative;
+            z-index: 10;
+            letter-spacing: 0.05em;
+        }
+        .hero-cta-button:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(45deg, #8E24AA 0%, #E53935 100%); /* Reverse gradient on hover */
+        }
+
+        /* Service Card Styles */
+        .service-card {
+            background-color: #FFFFFF;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s, border-color 0.4s;
+            border: 2px solid #F0F2F5; /* Softer initial border */
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before { /* Border highlight on hover */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 1.5rem;
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, #E53935, #8E24AA) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 1;
+        }
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        .service-card:hover {
+            transform: translateY(-12px) rotateX(2deg) scale(1.02); /* More pronounced 3D tilt + scale */
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.15);
+        }
+        .service-card .service-icon-container {
+            width: 120px; /* Container for generated images */
+            height: 120px;
+            margin: 0 auto 1.5rem auto;
+            border-radius: 50%;
+            background-color: #F8F5F2; /* Icon background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        .service-card .service-icon-container img {
+            width: 80%; /* Image fills container */
+            height: 80%;
+            object-fit: contain;
+            border-radius: 50%; /* Image also rounded */
+            transition: all 0.4s ease-in-out;
+        }
+        .service-card:hover .service-icon-container img {
+             transform: scale(1.1) rotate(5deg);
+        }
+        .service-card .service-icon-loading { /* Loading icon hidden */
+            display: none !important;
+        }
+
+        .service-card h3 {
+            font-weight: 700;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .service-card p {
+            font-size: 1rem;
+            color: #526171;
+        }
+
+        /* Portfolio Highlight Card Styles */
+        .portfolio-card {
+            background-color: #FFFFFF;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 2px solid #F0F2F5;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+            border-color: #8E24AA; /* Purple highlight */
+        }
+        .portfolio-card h3 {
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            color: #2F3645;
+        }
+        .portfolio-card .website-link {
+            font-size: 1rem;
+            color: #E53935; /* Red link */
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 1.25rem;
+            display: inline-block;
+            transition: color 0.2s;
+        }
+        .portfolio-card .website-link:hover {
+            color: #8E24AA; /* Purple on hover */
+            text-decoration: underline;
+        }
+        .portfolio-card p {
+            font-size: 1rem;
+            color: #526171;
+            margin-bottom: 1.75rem;
+        }
+        .view-details-button {
+            display: inline-block;
+            background-color: #2F3645; /* Dark button */
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.9rem 2rem;
+            border-radius: 9999px;
+            transition: background-color 0.2s, transform 0.2s;
+            text-decoration: none;
+        }
+        .view-details-button:hover {
+            background-color: #4A5568;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Why Choose Us Section */
+        .reason-card {
+            background-color: #FFFFFF;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 2px solid #F0F2F5;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s;
+        }
+        .reason-card::before { /* Border highlight on hover */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 1.5rem;
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, #E53935, #8E24AA) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 1;
+        }
+        .reason-card:hover::before {
+            opacity: 1;
+        }
+        .reason-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.15);
+            border-color: #E53935; /* Red highlight */
+        }
+        .reason-card .icon-container { /* Container for generated images */
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem auto;
+            border-radius: 50%;
+            background-color: #F8F5F2; /* Icon background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        .reason-card .icon-container img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            border-radius: 50%;
+            animation: reasonIconFloat 6s ease-in-out infinite alternate; /* Continuous animation */
+        }
+        @keyframes reasonIconFloat {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5px) scale(1.05); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        .reason-card .icon-loading { /* Loading icon hidden */
+            display: none !important;
+        }
+
+        .reason-card h3 {
+            font-weight: 700;
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .reason-card p {
+            font-size: 1rem;
+            color: #526171;
+        }
+
+        /* Blog/Insights Section */
+        .blog-card {
+            background-color: #FFFFFF;
+            border-radius: 1.5rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 2px solid #F0F2F5;
+        }
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            border-color: #E53935; /* Red highlight on hover */
+        }
+        .blog-card-image-container {
+            width: 100%;
+            height: 200px; /* Fixed height for blog image */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #F0F2F5;
+            position: relative;
+        }
+        .blog-card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+        .blog-card:hover .blog-card-image-container img {
+            transform: scale(1.05); /* Slight zoom on image hover */
+        }
+        .blog-card-content {
+            padding: 1.5rem;
+            text-align: left;
+        }
+        .blog-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #2F3645;
+        }
+        .blog-card p {
+            font-size: 0.95rem;
+            color: #526171;
+            margin-bottom: 1rem;
+        }
+        .read-more-link {
+            color: #8E24AA; /* Purple link */
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .read-more-link:hover {
+            color: #E53935; /* Red on hover */
+            text-decoration: underline;
+        }
+
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(145deg, #262626 0%, #1a1a1a 100%); /* Dark charcoal gradient for contact */
+            color: #FFFFFF;
+            padding: 8rem 1.5rem; /* Generous padding */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-top-left-radius: 3rem; /* Unique border radius */
+            border-top-right-radius: 3rem;
+            margin-top: 6rem; /* Space from previous section */
+        }
+        .contact-background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(45deg, rgba(229,57,53,0.15) 25%, transparent 25%, transparent 75%, rgba(229,57,53,0.15) 75%, rgba(229,57,53,0.15) 100%), /* Red pattern */
+                linear-gradient(45deg, rgba(142,36,170,0.15) 25%, transparent 25%, transparent 75%, rgba(142,36,170,0.15) 75%, rgba(142,36,170,0.15) 100%); /* Purple pattern */
+            background-size: 80px 80px; /* Larger pattern */
+            background-position: 0 0, 40px 40px;
+            opacity: 0.6; /* More prominent */
+            z-index: 0;
+            animation: moveContactPattern 50s linear infinite reverse; /* Slower reverse animation */
+        }
+        @keyframes moveContactPattern {
+            0% { background-position: 0 0; }
+            100% { background-position: -80px -80px; }
+        }
+        .contact-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-info-item {
+            display: inline-flex;
+            align-items: center;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #E0E7EB;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+            letter-spacing: 0.02em;
+        }
+        .contact-info-item:hover {
+            color: #E53935; /* Red on hover */
+            transform: translateY(-3px);
+            text-shadow: 0 0 12px rgba(229,57,53,0.7);
+        }
+        .contact-info-item span {
+            margin-right: 1rem;
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+        .contact-form label {
+            display: block;
+            text-align: left;
+            margin-bottom: 0.6rem;
+            font-weight: 500;
+            color: #E0E7EB;
+            font-size: 1.05rem;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 0.6rem;
+            border: 1px solid #4A5568;
+            background-color: #3B4553;
+            color: white;
+            font-size: 1.05rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: #E53935; /* Red focus */
+            box-shadow: 0 0 0 3px rgba(229,57,53,0.5);
+        }
+        .contact-form textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+        .submit-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #E53935 0%, #8E24AA 100%);
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding: 1.2rem 3rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .submit-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #8E24AA 0%, #E53935 100%); /* Reverse gradient on hover */
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            font-size: 0.95rem;
+            color: #7B8794;
+            margin-top: 4rem;
+            border-top: 1px solid #EFF2F5;
+        }
+
+        /* Service Detail Overlay */
+        .service-detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95); /* Darker, more opaque overlay */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+        }
+        .service-detail-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .detail-content {
+            background-color: #FFFFFF;
+            padding: 3.5rem; /* More padding */
+            border-radius: 1.75rem; /* More rounded */
+            max-width: 850px; /* Wider content */
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+            position: relative;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+            text-align: left; /* Align text within detail content */
+        }
+        .service-detail-overlay.open .detail-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .close-button {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem; /* Larger close button */
+            color: #262626;
+            cursor: pointer;
+            line-height: 1;
+            transition: transform 0.3s, color 0.3s;
+        }
+        .close-button:hover {
+            transform: rotate(90deg) scale(1.1);
+            color: #E53935;
+        }
+        .detail-content h3 {
+            font-size: 2.8rem; /* Larger title in detail */
+            margin-bottom: 1.5rem;
+            color: #8E24AA; /* Purple accent for detail title */
+            text-align: center;
+        }
+        .detail-content p {
+            font-size: 1.05rem;
+            color: #526171;
+            margin-bottom: 1.5rem; /* More space between paragraphs */
+        }
+        .detail-content .detail-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 2rem auto;
+            border-radius: 1rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive Overrides */
+        @media (max-width: 1024px) {
+            .section-padding {
+                padding: 4rem 1rem;
+            }
+            .hero-section {
+                padding: 6rem 1rem;
+                min-height: 70vh;
+            }
+            .hero-cta-button {
+                font-size: 1.1rem;
+                padding: 1rem 2.5rem;
+            }
+            .section-heading {
+                margin-bottom: 3rem;
+            }
+            .service-card, .portfolio-card, .reason-card {
+                padding: 2rem;
+            }
+            .service-card .service-icon-container {
+                width: 100px;
+                height: 100px;
+            }
+            .service-card .service-icon-container img {
+                width: 70%;
+                height: 70%;
+            }
+            .service-card h3, .reason-card h3 {
+                font-size: 1.4rem;
+            }
+            .contact-section {
+                padding: 4rem 1rem;
+            }
+            .detail-content {
+                padding: 2.5rem;
+            }
+            .detail-content h3 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.875rem;
+                line-height: 1.7;
+            }
+            h1 { font-size: 2.5rem; letter-spacing: -0.02em; }
+            h2 { font-size: 2rem; letter-spacing: -0.01em; }
+            h3 { font-size: 1.5rem; }
+            .section-padding {
+                padding: 3rem 0.75rem;
+            }
+            .hero-section {
+                padding: 5rem 0.75rem;
+                min-height: 60vh;
+                border-bottom-left-radius: 1.5rem;
+                border-bottom-right-radius: 1.5rem;
+            }
+            .hero-cta-button {
+                font-size: 1rem;
+                padding: 0.9rem 2rem;
+            }
+            .section-heading {
+                margin-bottom: 2.5rem;
+            }
+            .service-card, .portfolio-card, .reason-card {
+                padding: 1.5rem;
+                border-radius: 1rem;
+            }
+            .service-card .service-icon-container {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 0.75rem;
+            }
+            .service-card .service-icon-container img {
+                width: 70%;
+                height: 70%;
+            }
+            .service-card h3, .reason-card h3 {
+                font-size: 1.25rem;
+            }
+            .portfolio-card h3 {
+                font-size: 1.5rem;
+            }
+            .portfolio-card .website-link, .portfolio-card p {
+                font-size: 0.85rem;
+            }
+            .view-details-button {
+                font-size: 0.8rem;
+                padding: 0.6rem 1.2rem;
+            }
+            .contact-section {
+                padding: 3.5rem 0.75rem;
+                border-top-left-radius: 1.5rem;
+                border-top-right-radius: 1.5rem;
+                margin-top: 4rem;
+            }
+            .contact-info-item {
+                font-size: 1rem;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 1rem;
+            }
+            .contact-info-item span {
+                margin-right: 0;
+                margin-bottom: 0.25rem;
+            }
+            .contact-form label {
+                font-size: 0.95rem;
+            }
+            .contact-form input, .contact-form textarea {
+                padding: 0.6rem;
+                font-size: 0.9rem;
+            }
+            .submit-button {
+                font-size: 1rem;
+                padding: 0.8rem 2rem;
+            }
+            .detail-content {
+                padding: 1.5rem;
+                border-radius: 1rem;
+            }
+            .detail-content h3 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+            .detail-content p {
+                font-size: 0.9rem;
+            }
+            .close-button {
+                font-size: 1.5rem;
+                top: 1rem;
+                right: 1rem;
+            }
+            .hero-carousel-image {
+                background-size: cover; /* Use cover on mobile */
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background-color: #fff;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color: #2D3748;
+            }
+            .navigation {
+                display: none;
+            }
+            .hero-section, .section-padding, .contact-section, footer {
+                box-shadow: none !important;
+                border: none !important;
+                background-color: transparent !important;
+                border-radius: 0 !important;
+                padding: 1rem !important;
+                margin: 0 !important;
+                page-break-inside: avoid;
+            }
+            .hero-carousel-container, .contact-background-pattern, .service-card::before, .reason-card::before, .hero-cta-button, .view-details-button, .submit-button, .service-detail-overlay {
+                display: none !important; /* Hide dynamic backgrounds, effects, buttons, and overlays */
+            }
+            .hero-section {
+                /* Ensure hero content is visible even if background is hidden */
+                background: #262626 !important;
+                color: #FFFFFF !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .hero-content h1, .hero-content p {
+                color: #FFFFFF !important;
+                text-shadow: none !important;
+            }
+            .accent-red, .accent-purple {
+                color: #E53935 !important;
+            }
+            .service-card, .portfolio-card, .reason-card {
+                border: 1px solid #E0E8ED !important;
+                box-shadow: none !important;
+                transform: none !important;
+                background-color: #FFFFFF !important;
+                padding: 1.5rem !important;
+            }
+            .service-card .service-icon-container, .reason-card .icon-container { /* Ensure service icon containers print with content */
+                background-color: #F8F5F2 !important;
+                box-shadow: none !important;
+                border: none !important;
+                width: 80px; /* Fixed size for print */
+                height: 80px;
+                margin-bottom: 0.5rem !important;
+            }
+            .service-card .service-icon-container img, .reason-card .icon-container img {
+                width: 70%;
+                height: 70%;
+                transform: none !important;
+            }
+            .service-card h3, .reason-card h3, .portfolio-card h3 {
+                font-size: 1.25rem !important;
+            }
+            .service-card p, .reason-card p, .portfolio-card p {
+                font-size: 0.9rem !important;
+            }
+            .contact-info-item {
+                color: #262626 !important;
+                font-weight: normal !important;
+                text-decoration: none !important;
+                display: block !important;
+                margin-bottom: 0.5rem !important;
+            }
+            .contact-form label, .contact-form input, .contact-form textarea {
+                color: #262626 !important;
+                border-color: #D1D8E0 !important;
+                background-color: #FFFFFF !important;
+            }
+            .contact-form input:focus, .contact-form textarea:focus {
+                box-shadow: none !important;
+            }
+            .contact-content h2, .contact-content p {
+                color: #262626 !important;
+                text-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav class="navigation">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <a href="#hero" class="logo-text">YAWK DIGITAL</a>
+            <div class="flex space-x-8">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#impact">Impact</a>
+                <a href="#why-us">Why Us</a>
+                <a href="#insights">Insights</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-carousel-container">
+            <!-- Hero Images as SVG Data URIs -->
+            <img id="hero-image-1" class="hero-carousel-image" src="data:image/svg+xml,%3Csvg width='1920' height='1080' viewBox='0 0 1920 1080' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1920' height='1080' fill='%23262626'/%3E%3Cg opacity='0.7'%3E%3Cpath d='M100 0L0 500L900 600L100 0Z' fill='%23E53935'%3E%3Canimate attributeName='opacity' values='0.5;1;0.5' dur='8s' repeatCount='indefinite' begin='0s'/%3E%3C/path%3E%3Cpath d='M1820 1080L1920 580L1020 480L1820 1080Z' fill='%238E24AA'%3E%3Canimate attributeName='opacity' values='0.5;1;0.5' dur='8s' repeatCount='indefinite' begin='4s'/%3E%3C/path%3E%3Ccircle cx='960' cy='540' r='100' fill='%23E53935'%3E%3Canimate attributeName='r' values='100;150;100' dur='6s' repeatCount='indefinite' calcMode='spline' keySplines='0.5 0 0.5 1' keyTimes='0;0.5;1'/%3E%3C/circle%3E%3Ccircle cx='960' cy='540' r='150' fill='%238E24AA' opacity='0.5'%3E%3Canimate attributeName='r' values='150;200;150' dur='6s' repeatCount='indefinite' begin='3s' calcMode='spline' keySplines='0.5 0 0.5 1' keyTimes='0;0.5;1'/%3E%3C/circle%3E%3Cpath d='M0 0L1920 1080M1920 0L0 1080' stroke='%234A4A4A' stroke-width='1' opacity='0.1'%3E%3Canimate attributeName='stroke-dasharray' from='0 500' to='500 0' dur='15s' repeatCount='indefinite'/%3E%3C/path%3E%3C/g%3E%3C/svg%3E" alt="Abstract Digital Strategy Background">
+            <img id="hero-image-2" class="hero-carousel-image" src="data:image/svg+xml,%3Csvg width='1920' height='1080' viewBox='0 0 1920 1080' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1920' height='1080' fill='%23262626'/%3E%3Cg opacity='0.8'%3E%3Cpath d='M0 540 C 480 340, 960 740, 1440 340 C 1920 540, 1920 0, 960 0 C 0 0, 0 540, 0 540Z' fill='%23E53935'%3E%3Canimate attributeName='d' dur='12s' repeatCount='indefinite' values='M0 540 C 480 340, 960 740, 1440 340 C 1920 540, 1920 0, 960 0 C 0 0, 0 540, 0 540Z; M0 440 C 380 240, 860 640, 1340 240 C 1820 440, 1920 -100, 960 -100 C 0 -100, 0 440, 0 440Z; M0 540 C 480 340, 960 740, 1440 340 C 1920 540, 1920 0, 960 0 C 0 0, 0 540, 0 540Z'/%3E%3C/path%3E%3Cpath d='M1920 540 C 1440 740, 960 340, 480 740 C 0 540, 0 1080, 960 1080 C 1920 1080, 1920 540, 1920 540Z' fill='%238E24AA'%3E%3Canimate attributeName='d' dur='12s' repeatCount='indefinite' values='M1920 540 C 1440 740, 960 340, 480 740 C 0 540, 0 1080, 960 1080 C 1920 1080, 1920 540, 1920 540Z; M1920 640 C 1540 840, 1060 440, 580 840 C 100 640, 0 1180, 960 1180 C 1920 1180, 1920 640, 1920 640Z; M1920 540 C 1440 740, 960 340, 480 740 C 0 540, 0 1080, 960 1080 C 1920 1080, 1920 540, 1920 540Z'/%3E%3C/path%3E%3Ccircle cx='960' cy='540' r='10' fill='%23FFF' opacity='0.4'%3E%3Canimate attributeName='r' from='10' to='100' dur='5s' repeatCount='indefinite' begin='0s' keyTimes='0;0.5;1' values='10;100;10'/%3E%3C/circle%3E%3C/g%3E%3C/svg%3E" alt="Abstract Digital Acceleration Background">
+            <img id="hero-image-3" class="hero-carousel-image" src="data:image/svg+xml,%3Csvg width='1920' height='1080' viewBox='0 0 1920 1080' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1920' height='1080' fill='%23262626'/%3E%3Cg opacity='0.7'%3E%3Cpath d='M960 0 L0 1080 L1920 1080 Z' fill='%23E53935' opacity='0.8'/%3E%3Cpath d='M960 1080 L0 0 L1920 0 Z' fill='%238E24AA' opacity='0.8'/%3E%3Crect x='-50' y='-50' width='100' height='100' fill='%23FFF' opacity='0.2'%3E%3CanimateMotion path='M-50 -50 L2000 1100 L-100 1100 Z' dur='18s' repeatCount='indefinite' rotate='auto'/%3E%3C/rect%3E%3C/g%3E%3C/svg%3E" alt="Abstract Innovation Background">
+        </div>
+        <div class="hero-content">
+            <h1 id="hero-headline" class="text-5xl md:text-8xl font-extrabold mb-8 text-white drop-shadow-lg leading-tight">
+                <!-- Text will change dynamically -->
+            </h1>
+            <p id="hero-subheadline" class="text-xl md:text-3xl font-light mb-12 text-white/90 leading-relaxed drop-shadow-md max-w-4xl mx-auto">
+                <!-- Text will change dynamically -->
+            </p>
+            <a href="#services" class="hero-cta-button">Explore Our Services</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section-padding bg-primary-light">
+        <h2 class="text-4xl md:text-5xl font-bold section-heading">About Yawk Digital</h2>
+        <div class="max-w-5xl mx-auto text-center text-gray-700 text-xl leading-relaxed">
+            <p class="mb-5">
+                Founded by <strong>Mudassar Bashir</strong>, Yawk Digital is your premier partner in navigating the complex digital landscape. As a dedicated <strong>Brand Strategist and Digital Marketing Expert</strong>, I bring a unique fusion of creative insight and analytical precision to every client engagement.
+            </p>
+            <p class="mb-5">
+                My core passion lies in empowering startups and established businesses not just to participate, but to <strong>dominate their respective niches</strong>. We achieve this by meticulously crafting bespoke strategies that build magnetic brand identities, accelerate customer acquisition, and drive measurable, sustainable growth that truly stands out.
+            </p>
+            <p>
+                At Yawk Digital, we champion <strong>intelligent marketing</strong> – leveraging the deepest insights, the latest technological approaches, and a results-first mindset to turn your digital potential into tangible, impactful success.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section-padding bg-accent-light">
+        <h2 class="text-4xl md:text-5xl font-bold section-heading">Our Core Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Service Card 1: Brand Strategy & Identity -->
+            <div class="service-card" data-service="brand-strategy">
+                <div class="service-icon-container">
+                    <img class="service-icon" src="data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='120' height='120' rx='60' fill='none'/%3E%3Cpath d='M60 10L10 50L60 110L110 50L60 10Z' fill='%23E53935' opacity='0.8'/%3E%3Cpath d='M60 10L60 110M10 50L110 50M25 85L95 25M25 25L95 85' stroke='%238E24AA' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' opacity='0.7'%3E%3Canimate attributeName='stroke-dasharray' from='0 200' to='200 0' dur='5s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E" alt="Brand Strategy Icon">
+                </div>
+                <h3>Brand Strategy & Identity</h3>
+                <p>Developing unique brand narratives, compelling visual identities, and strategic market positioning that truly resonate.</p>
+            </div>
+            <!-- Service Card 2: Website Design & Development -->
+            <div class="service-card" data-service="website-development">
+                <div class="service-icon-container">
+                    <img class="service-icon" src="data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='120' height='120' rx='60' fill='none'/%3E%3Cpath d='M30 30H90V90H30V30Z' fill='%238E24AA' opacity='0.8'/%3E%3Cpath d='M45 30V90M75 30V90M30 45H90M30 75H90' stroke='%23E53935' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' opacity='0.7'%3E%3Canimate attributeName='stroke-dashoffset' from='0' to='-120' dur='4s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E" alt="Website Design Icon">
+                </div>
+                <h3>Website Design & Development</h3>
+                <p>Crafting high-performance, conversion-focused e-commerce websites on Shopify and WordPress platforms.</p>
+            </div>
+            <!-- Service Card 3: Paid Advertising Campaigns -->
+            <div class="service-card" data-service="paid-advertising">
+                <div class="service-icon-container">
+                    <img class="service-icon" src="data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='120' height='120' rx='60' fill='none'/%3E%3Cpath d='M60 10L100 60L60 110L20 60L60 10Z' fill='%23E53935' opacity='0.8'/%3E%3Cpath d='M60 10L60 110M10 60L110 60' stroke='%238E24AA' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' opacity='0.7'%3E%3Canimate attributeName='stroke-dasharray' from='0 100' to='100 0' dur='3s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E" alt="Paid Advertising Icon">
+                </div>
+                <h3>Paid Advertising Campaigns</h3>
+                <p>Expert management of TikTok Ads, Meta Ads (Facebook/Instagram), and Google Ads for maximum ROI and targeted reach.</p>
+            </div>
+            <!-- Service Card 4: SEO & Content Marketing -->
+            <div class="service-card" data-service="seo-content">
+                <div class="service-icon-container">
+                    <img class="service-icon" src="data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='120' height='120' rx='60' fill='none'/%3E%3Ccircle cx='50' cy='50' r='30' stroke='%238E24AA' stroke-width='4'%3E%3Canimate attributeName='r' values='30;35;30' dur='3s' repeatCount='indefinite' begin='0s'/%3E%3C/circle%3E%3Cpath d='M70 70L100 100' stroke='%23E53935' stroke-width='4' stroke-linecap='round'%3E%3Canimate attributeName='stroke-dasharray' from='0 50' to='50 0' dur='2s' repeatCount='indefinite' begin='1s'/%3E%3C/path%3E%3Cpath d='M20 60L30 70L40 60L50 70L60 60L70 70L80 60' stroke='%238E24AA' stroke-width='2' opacity='0.7'%3E%3CanimateMotion path='M0 0 C 20 10, 40 -10, 60 0 S 100 10, 120 0' dur='4s' repeatCount='indefinite' rotate='auto'/%3E%3C/path%3E%3C/svg%3E" alt="SEO Icon">
+                </div>
+                <h3>SEO & Content Marketing</h3>
+                <p>Optimizing online visibility, driving organic traffic, and creating valuable content that attracts and engages your audience.</p>
+            </div>
+            <!-- Service Card 5: Email Marketing Automation -->
+            <div class="service-card" data-service="email-marketing">
+                <div class="service-icon-container">
+                    <img class="service-icon" src="data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='120' height='120' rx='60' fill='none'/%3E%3Cpath d='M20 30L60 60L100 30V90H20V30Z' fill='%23E53935' opacity='0.8'/%3E%3Cpath d='M20 30L60 60L100 30' stroke='%238E24AA' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' opacity='0.7'%3E%3Canimate attributeName='stroke-dasharray' from='0 100' to='100 0' dur='3s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E" alt="Email Marketing Icon">
+                </div>
+                <h3>Email Marketing Automation</h3>
+                <p>Building automated email funnels, nurturing leads, and fostering customer loyalty through personalized campaigns.</p>
+            </div>
+            <!-- Service Card 6: Social Media Management -->
+            <div class="service-card" data-service="social-media">
+                <div class="service-icon-container">
+                    <img class="service-icon" src="data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='120' height='120' rx='60' fill='none'/%3E%3Ccircle cx='35' cy='35' r='15' fill='%238E24AA' opacity='0.8'%3E%3Canimate attributeName='cx' values='35;40;35' dur='4s' repeatCount='indefinite'/%3E%3C/circle%3E%3Ccircle cx='85' cy='35' r='15' fill='%23E53935' opacity='0.8'%3E%3Canimate attributeName='cy' values='35;40;35' dur='4s' begin='2s' repeatCount='indefinite'/%3E%3C/circle%3E%3Ccircle cx='60' cy='85' r='15' fill='%238E24AA' opacity='0.8'%3E%3Canimate attributeName='cx' values='60;55;60' dur='4s' begin='1s' repeatCount='indefinite'/%3E%3C/circle%3E%3Cpath d='M35 35L50 70L85 35M60 85L80 50L85 35' stroke='%23262626' stroke-width='2' stroke-linecap='round' opacity='0.5'/%3E%3C/svg%3E" alt="Social Media Icon">
+                </div>
+                <h3>Social Media Management</h3>
+                <p>Developing engaging social media strategies, managing platforms, and building thriving online communities.</p>
+            </div>
+            <!-- Service Card 7: Marketing Funnel & Analytics -->
+            <div class="service-card" data-service="funnel-analytics">
+                <div class="service-icon-container">
+                    <img class="service-icon" src="data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='120' height='120' rx='60' fill='none'/%3E%3Cpath d='M40 20L80 20L60 100L40 20Z' fill='%23E53935' opacity='0.8'%3E%3Canimate attributeName='transform' type='rotate' from='0 60 60' to='360 60 60' dur='8s' repeatCount='indefinite'/%3E%3C/path%3E%3Cpath d='M20 70L100 70M30 40L90 40' stroke='%238E24AA' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' opacity='0.7'/%3E%3C/svg%3E" alt="Marketing Funnel Icon">
+                </div>
+                <h3>Marketing Funnel & Analytics</h3>
+                <p>Designing effective sales funnels, lead generation strategies, and providing data-driven insights for continuous optimization.</p>
+            </div>
+            <!-- Service Card 8: Graphic Design & Copywriting -->
+            <div class="service-card" data-service="graphic-copywriting">
+                <div class="service-icon-container">
+                    <img class="service-icon" src="data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='120' height='120' rx='60' fill='none'/%3E%3Cpath d='M20 30L40 20L100 80L80 90L20 30Z' fill='%238E24AA' opacity='0.8'/%3E%3Cpath d='M40 20L60 30M80 90L100 80' stroke='%23E53935' stroke-width='4' stroke-linecap='round' opacity='0.7'%3E%3Canimate attributeName='opacity' values='0.7;0.3;0.7' dur='3s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E" alt="Graphic Design Icon">
+                </div>
+                <h3>Graphic Design & Copywriting</h3>
+                <p>Creating captivating visuals and persuasive copy that effectively communicates your brand message and converts.</p>
+            </div>
+            <!-- Service Card 9: Strategic Consulting -->
+            <div class="service-card" data-service="strategic-consulting">
+                <div class="service-icon-container">
+                    <img class="service-icon" src="data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='120' height='120' rx='60' fill='none'/%3E%3Cpath d='M60 10L30 40L60 70L90 40L60 10Z' fill='%23E53935' opacity='0.8'%3E%3Canimate attributeName='transform' type='translate' values='0 0; 0 5; 0 0' dur='4s' repeatCount='indefinite'/%3E%3C/path%3E%3Cpath d='M60 70L30 100L60 70L90 100L60 70Z' fill='%238E24AA' opacity='0.8'%3E%3Canimate attributeName='transform' type='translate' values='0 0; 0 -5; 0 0' dur='4s' repeatCount='indefinite' begin='2s'/%3E%3C/path%3E%3C/svg%3E" alt="Strategic Consulting Icon">
+                </div>
+                <h3>Strategic Consulting</h3>
+                <p>Providing expert guidance and actionable insights to resolve complex marketing challenges and unlock new opportunities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Detail Overlay (Hidden by default) -->
+    <div id="service-detail-overlay" class="service-detail-overlay">
+        <div class="detail-content">
+            <button class="close-button">✖</button>
+            <h3 id="detail-title"></h3>
+            <p id="detail-description"></p>
+        </div>
+    </div>
+
+    <!-- Portfolio Highlights Section -->
+    <section id="portfolio" class="section-padding bg-primary-light">
+        <h2 class="text-4xl md:text-5xl font-bold section-heading">Our Work in Action</h2>
+        <p class="text-center text-xl text-gray-700 max-w-4xl mx-auto mb-12">
+            See how Yawk Digital has transformed visions into tangible digital success for ambitious brands. Our strategies are meticulously tailored for maximum impact, delivering real-world, measurable results.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="portfolio-card">
+                <h3>Wilderness Organics</h3>
+                <a href="https://www.wnorganics.com" target="_blank" class="website-link">www.wnorganics.com</a>
+                <p>
+                    Spearheaded the complete Shopify e-commerce store build for this organic skincare/wild olive oil brand. My role encompassed comprehensive brand identity design, strategic SEO optimization, and high-impact ad creative development that drove significant engagement and sales.
+                </p>
+                <a href="https://www.wnorganics.com" target="_blank" class="view-details-button">View Website</a>
+            </div>
+            <div class="portfolio-card">
+                <h3>Kaabil Cargo</h3>
+                <a href="https://www.kaabilcargo.com" target="_blank" class="website-link">www.kaabilcargo.com</a>
+                <p>
+                    Developed a modern, high-performance WordPress website and a complete, cohesive brand identity for this UAE-based logistics company. The project focused heavily on establishing effective lead generation funnels and creating impactful ad creatives that boosted inquiries.
+                </p>
+                <a href="https://www.kaabilcargo.com" target="_blank" class="view-details-button">View Website</a>
+            </div>
+        </div>
+        <div class="text-center mt-16">
+            <p class="text-xl text-gray-700 mb-8">Ready to explore the full depth of our strategic projects and the transformative impact we create?</p>
+            <!-- Assuming your full portfolio is hosted at a specific URL, you can uncomment and update this link -->
+            <!-- <a href="[Your Live Portfolio URL]" target="_blank" class="hero-cta-button">View Full Portfolio</a> -->
+        </div>
+    </section>
+
+    <!-- Our Impact by the Numbers Section -->
+    <section id="impact" class="section-padding bg-accent-light">
+        <h2 class="text-4xl md:text-5xl font-bold section-heading">Our Impact by the Numbers</h2>
+        <p class="text-center text-xl text-gray-700 max-w-4xl mx-auto mb-12">
+            We believe in measurable results. Here's a glimpse of the tangible impact Yawk Digital has delivered for our valued clients.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="key-highlight-card text-center">
+                <div class="icon-container mb-4">
+                    <img class="icon" src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='50' fill='none'/%3E%3Cpath d='M25 50L45 70L75 30' stroke='%23E53935' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'%3E%3Canimate attributeName='stroke-dasharray' from='0 100' to='100 0' dur='2s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E" alt="Projects Completed Icon">
+                </div>
+                <h3 class="text-5xl font-bold accent-red"><span data-target="35" class="counter">0</span>+</h3>
+                <p class="text-gray-700 text-lg">Projects Completed</p>
+            </div>
+            <div class="key-highlight-card text-center">
+                <div class="icon-container mb-4">
+                    <img class="icon" src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='50' fill='none'/%3E%3Ccircle cx='50' cy='50' r='30' stroke='%238E24AA' stroke-width='6'%3E%3Canimate attributeName='r' values='30;35;30' dur='3s' repeatCount='indefinite' calcMode='spline' keySplines='0.5 0 0.5 1' keyTimes='0;1'/%3E%3C/circle%3E%3Cpath d='M50 20V80M20 50H80' stroke='%23E53935' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" alt="Clients Empowered Icon">
+                </div>
+                <h3 class="text-5xl font-bold accent-purple"><span data-target="20" class="counter">0</span>+</h3>
+                <p class="text-gray-700 text-lg">Clients Empowered</p>
+            </div>
+            <div class="key-highlight-card text-center">
+                <div class="icon-container mb-4">
+                    <img class="icon" src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='50' fill='none'/%3E%3Cpath d='M20 80L40 40L60 60L80 20' stroke='%23E53935' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'%3E%3Canimate attributeName='points' dur='5s' repeatCount='indefinite' values='20,80 40,40 60,60 80,20; 20,20 40,60 60,40 80,80; 20,80 40,40 60,60 80,20'/%3E%3C/path%3E%3C/svg%3E" alt="Traffic Boosted Icon">
+                </div>
+                <h3 class="text-5xl font-bold accent-red"><span data-target="300" class="counter">0</span>%</h3>
+                <p class="text-gray-700 text-lg">Avg. Traffic Boost</p>
+            </div>
+            <div class="key-highlight-card text-center">
+                <div class="icon-container mb-4">
+                    <img class="icon" src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='50' fill='none'/%3E%3Cpath d='M30 60L50 40L70 60M50 40V80M50 20C60 20 70 30 70 40C70 30 60 20 50 20Z' stroke='%238E24AA' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'%3E%3CanimateTransform attributeName='transform' type='rotate' from='0 50 50' to='360 50 50' dur='10s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E" alt="Revenue Generated Icon">
+                </div>
+                <h3 class="text-5xl font-bold accent-purple"><span data-target="150" class="counter">0</span>%</h3>
+                <p class="text-gray-700 text-lg">Avg. Revenue Growth</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-us" class="section-padding bg-gray-50">
+        <h2 class="text-4xl md:text-5xl font-bold section-heading">Why Choose Yawk Digital?</h2>
+        <p class="text-center text-xl text-gray-700 max-w-4xl mx-auto mb-12">
+            Our approach is meticulously built on a foundation of cutting-edge strategic thinking, relentless innovation, and an unwavering commitment to delivering highly measurable results. We don't just execute tasks; we partner with you to engineer lasting digital success and market dominance.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="reason-card" data-reason="strategic-depth">
+                <div class="icon-container">
+                    <img class="icon" src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='50' fill='none'/%3E%3Cpath d='M50 15L25 45L50 85L75 45L50 15Z' fill='%23E53935' opacity='0.8'/%3E%3Cpath d='M50 15L50 85M25 45L75 45' stroke='%238E24AA' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' opacity='0.7'%3E%3CanimateTransform attributeName='transform' type='rotate' from='0 50 50' to='360 50 50' dur='15s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E" alt="Strategic Depth Icon">
+                </div>
+                <h3>Strategic Depth</h3>
+                <p>We develop holistic strategies precisely tailored to your unique business goals, ensuring every action contributes powerfully to your larger vision.</p>
+            </div>
+            <div class="reason-card" data-reason="intelligent-marketing">
+                <div class="icon-container">
+                    <img class="icon" src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='50' fill='none'/%3E%3Ccircle cx='50' cy='50' r='35' stroke='%238E24AA' stroke-width='4'%3E%3Canimate attributeName='r' values='35;40;35' dur='4s' repeatCount='indefinite' calcMode='spline' keySplines='0.5 0 0.5 1' keyTimes='0;1'/%3E%3C/circle%3E%3Cpath d='M50 15L50 85M15 50H85M30 30L70 70M70 30L30 70' stroke='%23E53935' stroke-width='2' opacity='0.7'%3E%3Canimate attributeName='opacity' values='0.7;0.3;0.7' dur='5s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E" alt="Intelligent Marketing Icon">
+                </div>
+                <h3>Intelligent Marketing</h3>
+                <p>Leveraging cutting-edge tools and AI-driven insights to analyze market trends, meticulously optimize campaigns, and maximize overall efficiency.</p>
+            </div>
+            <div class="reason-card" data-reason="brand-centric">
+                <div class="icon-container">
+                    <img class="icon" src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='50' fill='none'/%3E%3Cpath d='M50 10C70 10 90 30 90 50C90 70 70 90 50 90C30 90 10 70 10 50C10 30 30 10 50 10Z' fill='%23E53935' opacity='0.8'%3E%3Canimate attributeName='transform' type='scale' from='1' to='1.05' dur='4s' repeatCount='indefinite' calcMode='spline' keySplines='0.5 0 0.5 1' keyTimes='0;1' values='1;1.05;1'/%3E%3C/path%3E%3Cpath d='M50 25C65 25 75 35 75 50C75 65 65 75 50 75C35 75 25 65 25 50C25 35 35 25 50 25Z' fill='%238E24AA' opacity='0.8'%3E%3Canimate attributeName='transform' type='scale' from='1' to='0.95' dur='4s' repeatCount='indefinite' calcMode='spline' keySplines='0.5 0 0.5 1' keyTimes='0;1' values='1;0.95;1'/%3E%3C/path%3E%3C/svg%3E" alt="Brand-Centric Approach Icon">
+                </div>
+                <h3>Brand-Centric Approach</h3>
+                <p>Your brand's authentic essence is meticulously woven into the core of everything we do, ensuring cohesive messaging and a powerful market presence.</p>
+            </div>
+            <div class="reason-card" data-reason="results-driven">
+                <div class="icon-container">
+                    <img class="icon" src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='50' fill='none'/%3E%3Cpath d='M20 80L40 40L60 60L80 20' stroke='%238E24AA' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'%3E%3CanimateMotion path='M0 0 C 10 -10, 20 10, 30 0 S 50 -10, 60 0' dur='5s' repeatCount='indefinite' rotate='auto'/%3E%3C/path%3E%3Cpath d='M70 20L80 20L80 30' stroke='%23E53935' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Canimate attributeName='opacity' values='1;0.5;1' dur='3s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E" alt="Results-Driven Focus Icon">
+                </div>
+                <h3>Results-Driven Focus</h3>
+                <p>We are passionately obsessed with achieving measurable outcomes, continuously optimizing campaigns to deliver a superior return on your investment.</p>
+            </div>
+            <div class="reason-card" data-reason="transparent-partnership">
+                <div class="icon-container">
+                    <img class="icon" src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='50' fill='none'/%3E%3Cpath d='M25 50L75 50M50 25L50 75M25 25L75 75M75 25L25 75' stroke='%23E53935' stroke-width='4' stroke-linecap='round' opacity='0.8'/%3E%3Cpath d='M50 50L60 60L70 50L60 40L50 50Z' fill='%238E24AA' opacity='0.8'%3E%3Canimate attributeName='transform' type='scale' values='1;1.1;1' dur='3s' repeatCount='indefinite' begin='0.5s'/%3E%3C/path%3E%3C/svg%3E" alt="Transparent Partnership Icon">
+                </div>
+                <h3>Transparent Partnership</h3>
+                <p>Clear communication, highly detailed reporting, and a true collaborative spirit define the foundation of our client relationships.</p>
+            </div>
+            <div class="reason-card" data-reason="sustainable-growth">
+                <div class="icon-container">
+                    <img class="icon" src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='50' fill='none'/%3E%3Cpath d='M30 80C30 50 70 50 70 20M30 80L20 70M70 20L80 30' stroke='%238E24AA' stroke-width='6' stroke-linecap='round'%3E%3Canimate attributeName='d' dur='8s' repeatCount='indefinite' values='M30 80C30 50 70 50 70 20M30 80L20 70M70 20L80 30; M35 75C35 45, 75 45, 75 15M35 75L25 65M75 15L85 25; M30 80C30 50 70 50 70 20M30 80L20 70M70 20L80 30'/%3E%3C/path%3E%3Cpath d='M70 20L80 10M80 30L90 20' stroke='%23E53935' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" alt="Sustainable Growth Icon">
+                </div>
+                <h3>Sustainable Growth</h3>
+                <p>Our meticulously designed strategies are not just for quick wins, but for long-term scalability and enduring market leadership that lasts.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="insights" class="section-padding bg-accent-light">
+        <h2 class="text-4xl md:text-5xl font-bold section-heading">Insights & Blog</h2>
+        <p class="text-center text-xl text-gray-700 max-w-4xl mx-auto mb-12">
+            Stay ahead with the latest trends, expert advice, and success stories in brand strategy and digital marketing. Discover how we're shaping the digital future.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="blog-card" data-blog="ai-revolution">
+                <div class="blog-card-image-container">
+                    <img src="https://placehold.co/600x400/E53935/FFFFFF?text=AI+in+Marketing" alt="AI in Marketing Blog Post">
+                </div>
+                <div class="blog-card-content">
+                    <h3>The AI Revolution in Brand Strategy</h3>
+                    <p class="text-gray-700">Explore how artificial intelligence is transforming brand development, from market analysis to personalized campaigns...</p>
+                    <a href="#" class="read-more-link">Read More &rarr;</a>
+                </div>
+            </div>
+            <div class="blog-card" data-blog="ecommerce-trends">
+                <div class="blog-card-image-container">
+                    <img src="https://placehold.co/600x400/8E24AA/FFFFFF?text=Ecommerce+Trends" alt="Ecommerce Trends Blog Post">
+                </div>
+                <div class="blog-card-content">
+                    <h3>Top E-commerce Trends for 2025</h3>
+                    <p class="text-gray-700">A deep dive into the must-know trends for online businesses, including headless commerce and customer experience...</p>
+                    <a href="#" class="read-more-link">Read More &rarr;</a>
+                </div>
+            </div>
+            <div class="blog-card" data-blog="content-funnels">
+                <div class="blog-card-image-container">
+                    <img src="https://placehold.co/600x400/262626/FFFFFF?text=Content+Marketing" alt="Content Marketing Blog Post">
+                </div>
+                <div class="blog-card-content">
+                    <h3>Crafting Compelling Content Funnels</h3>
+                    <p class="text-gray-700">Learn how to design content strategies that guide your audience from awareness to loyal customers...</p>
+                    <a href="#" class="read-more-link">Read More &rarr;</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-16">
+            <a href="#" class="hero-cta-button">View All Insights</a>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="contact-background-pattern"></div>
+        <div class="contact-content">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 text-white drop-shadow-lg">Ready to Ignite Your Growth?</h2>
+            <p class="text-xl font-light mb-12 text-white/90 leading-relaxed max-w-3xl mx-auto">
+                Let's connect and discuss how Yawk Digital can craft a bespoke strategy to elevate your brand, accelerate your digital success, and truly stand out in your market.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-12 mb-16">
+                <a href="mailto:yawkdigital@gmail.com" class="contact-info-item">
+                    <span>📧</span> yawkdigital@gmail.com
+                </a>
+                <a href="tel:+923358333228" class="contact-info-item">
+                    <span>📱</span> +92 335 8333228
+                </a>
+            </div>
+
+            <form class="contact-form space-y-6">
+                <div>
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="company">Company Name (Optional)</label>
+                    <input type="text" id="company" name="company">
+                </div>
+                <div>
+                    <label for="message">How can we help you?</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2025 Yawk Digital. All rights reserved.
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Service/Reason/Blog Detail Overlay Logic
+        const serviceData = {
+            'brand-strategy': {
+                title: 'Brand Strategy & Identity Development',
+                description: 'We dive deep into your brand\'s core, defining its unique mission, vision, and values. This involves extensive market research, competitor analysis, and target audience segmentation to craft a compelling brand narrative and a distinct visual identity (logo, color palettes, typography) that truly sets you apart in the market and resonates with your ideal customers.'
+            },
+            'website-development': {
+                title: 'High-Performance Website Design & Development',
+                description: 'Our expertise lies in building dynamic, user-centric websites on leading platforms like Shopify for e-commerce and WordPress for versatile business solutions. We focus on intuitive user experience (UX), stunning user interface (UI) design, lightning-fast loading speeds, robust functionality, and seamless mobile responsiveness to ensure your website is a powerful conversion engine.'
+            },
+            'paid-advertising': {
+                title: 'Optimized Paid Advertising Campaigns',
+                description: 'We manage highly effective paid advertising campaigns across major platforms including TikTok Ads, Meta Ads (Facebook & Instagram), and Google Ads (Search, Display, YouTube). Our approach involves meticulous audience targeting, compelling ad creative development, continuous budget optimization, and advanced analytics to ensure maximum return on your advertising spend (ROI) and reach your precise target audience.'
+            },
+            'seo-content': {
+                title: 'Strategic SEO & Engaging Content Marketing',
+                description: 'We boost your online visibility and drive organic traffic through comprehensive Search Engine Optimization (SEO) strategies, coupled with high-value content marketing. This includes in-depth keyword research, on-page and off-page SEO, technical SEO audits, and the creation of engaging content (blog posts, articles, guides) that positions your brand as an authority and attracts qualified leads naturally.'
+            },
+            'email-marketing': {
+                title: 'Automated Email Marketing Funnels',
+                description: 'We design and implement sophisticated email marketing funnels that nurture leads and build lasting customer loyalty. This involves audience segmentation, setting up automated sequences (welcome series, abandoned cart recovery, post-purchase follow-ups), and crafting personalized newsletters and promotional campaigns that engage subscribers and drive repeat business.'
+            },
+            'social-media': {
+                title: 'Dynamic Social Media Management',
+                description: 'We develop and execute comprehensive social media strategies that elevate your brand\'s presence and foster vibrant online communities. Our services include platform selection, content calendar creation, compelling post design, community engagement, and performance monitoring across platforms like Facebook, Instagram, LinkedIn, and TikTok.'
+            },
+            'funnel-analytics': {
+                title: 'Conversion Funnel Design & Advanced Analytics',
+                description: 'We specialize in designing high-converting marketing and sales funnels, from initial awareness to final conversion. Complementing this, we set up robust analytics tracking (e.g., Google Analytics 4, Google Search Console) to provide you with clear, data-driven insights into customer behavior, campaign performance, and opportunities for continuous optimization and increased profitability.'
+            },
+            'graphic-copywriting': {
+                title: 'Impactful Graphic Design & Persuasive Copywriting',
+                description: 'We create captivating visual assets and compelling written content that effectively communicates your brand\'s message and drives action. From stunning ad creatives, website imagery, and social media graphics to persuasive website copy, product descriptions, and sales emails, our design and copywriting services ensure your brand\'s voice is consistent and powerfully persuasive.'
+            },
+            'strategic-consulting': {
+                title: 'Expert Strategic Consulting',
+                description: 'Beyond specific services, I provide high-level strategic consulting to help businesses navigate complex marketing challenges, identify untapped opportunities, and define clear pathways for growth. This involves one-on-one sessions, custom market analysis, and actionable recommendations to refine your overall business and marketing strategy.'
+            },
+            // Reason Data (NEW)
+            'strategic-depth': {
+                title: 'Why Strategic Depth is Crucial',
+                description: 'In today\'s dynamic digital landscape, a superficial approach simply won\'t suffice. Our "Strategic Depth" means we meticulously analyze your market, competitors, and audience to unearth unique insights. This foundational work allows us to craft comprehensive, holistic strategies that aren\'t just about short-term gains, but about building powerful, long-term brand equity and sustainable competitive advantage. We ensure every tactic aligns with a grander vision, driving impactful and enduring results.'
+            },
+            'intelligent-marketing': {
+                title: 'Our Approach to Intelligent Marketing',
+                description: 'The era of guesswork in marketing is over. Our "Intelligent Marketing" approach leverages cutting-edge AI and advanced data analytics to provide unparalleled precision. We utilize sophisticated tools to analyze market trends, predict consumer behavior, and meticulously optimize campaigns in real-time. This data-driven methodology ensures your marketing spend is maximized, campaigns are hyper-targeted, and decision-making is always informed, leading to superior efficiency and measurable ROI.'
+            },
+            'brand-centric': {
+                title: 'Our Unwavering Brand-Centric Approach',
+                description: 'Your brand is more than just a logo; it\'s your promise, your personality, and your distinct voice in a crowded market. Our "Brand-Centric Approach" places your authentic essence at the very core of every marketing initiative. From visual identity to messaging and campaign execution, we ensure unwavering consistency and emotional resonance. This holistic focus builds strong brand recognition, fosters deep customer loyalty, and establishes a powerful, memorable presence that truly differentiates you.'
+            },
+            'results-driven': {
+                title: 'Our Commitment to Results-Driven Focus',
+                description: 'At Yawk Digital, talk is cheap – results are paramount. Our "Results-Driven Focus" means we are passionately obsessed with achieving tangible, measurable outcomes for your business. We set clear KPIs, implement robust tracking, and continuously optimize every campaign based on performance data. Our transparent reporting keeps you informed every step of the way, ensuring that our efforts translate directly into superior returns on your investment and clear progress towards your business objectives.'
+            },
+            'transparent-partnership': {
+                title: 'Building Transparent Partnerships',
+                description: 'We believe that the strongest results come from true collaboration. Our "Transparent Partnership" philosophy is built on a foundation of open communication, detailed reporting, and mutual trust. We provide clear insights into our processes, performance data, and strategic decisions, ensuring you are always informed and empowered. This collaborative spirit fosters a strong, productive relationship where your goals become our shared mission, leading to more effective and harmonious project outcomes.'
+            },
+            'sustainable-growth': {
+                title: 'Engineering Sustainable Growth',
+                description: 'Rapid growth is exciting, but sustainable growth is transformative. Our "Sustainable Growth" strategies are meticulously designed for long-term scalability and enduring market leadership. We build resilient digital foundations, implement adaptable marketing frameworks, and focus on strategies that yield compounding returns. This approach ensures your business can not only achieve quick wins but also maintain momentum and continually expand its influence and profitability for years to come.'
+            },
+            // Blog Data (NEW)
+            'ai-revolution': {
+                title: 'The AI Revolution in Brand Strategy',
+                description: 'Artificial intelligence is no longer a futuristic concept; it\'s a fundamental driver of modern brand strategy. This article dives deep into how AI is transforming every facet of brand development, from conducting unparalleled market analysis and identifying hyper-specific consumer trends to enabling personalized content delivery at scale. We explore practical applications, ethical considerations, and how brands can leverage AI to gain a significant competitive edge, optimize resource allocation, and foster deeper customer connections in an ever-evolving digital landscape.'
+            },
+            'ecommerce-trends': {
+                title: 'Top E-commerce Trends for 2025: Navigating the Future of Online Retail',
+                description: 'The e-commerce landscape is constantly evolving, and staying ahead of the curve is crucial for sustained success. This comprehensive article highlights the top e-commerce trends poised to dominate in 2025. We cover the rise of immersive shopping experiences (like AR/VR in retail), the increasing demand for hyper-personalization, the impact of sustainable practices on consumer choices, the shift towards headless commerce architectures, and the growing importance of community-driven platforms. Understand these trends to future-proof your online business and capture emerging market opportunities.'
+            },
+            'content-funnels': {
+
+                title: 'Mastering the Art of Crafting Compelling Content Funnels',
+                description: 'Content is king, but only if it\'s strategically deployed. This article unpacks the art and science of crafting compelling content funnels that seamlessly guide your audience from initial awareness to loyal customer advocacy. We break down each stage of the funnel – Awareness, Consideration, Decision, and Retention – and provide actionable strategies for creating the right type of content (blog posts, videos, whitepapers, emails) for each. Learn how to map content to your customer journey, optimize for conversion at every touchpoint, and build a robust content ecosystem that consistently generates leads and fosters lasting relationships.'
+            }
+        };
+
+        // --- Run DOMContentLoaded script after everything is loaded ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Service/Reason/Blog Detail Overlay Logic
+            const detailOverlay = document.getElementById('service-detail-overlay');
+            const detailTitle = document.getElementById('detail-title');
+            const detailDescription = document.getElementById('detail-description');
+            const closeButton = document.querySelector('.close-button');
+
+            // Define allCards here to ensure it's accessible within this scope
+            const allCards = document.querySelectorAll('.service-card, .reason-card, .blog-card');
+
+            allCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const dataType = card.dataset.service || card.dataset.reason || card.dataset.blog;
+                    const data = allDetailData[dataType];
+
+                    if (data) {
+                        detailTitle.textContent = data.title;
+                        detailDescription.textContent = data.description;
+                        detailOverlay.classList.add('open');
+                        document.body.style.overflow = 'hidden'; // Prevent scrolling background
+                    }
+                });
+            });
+
+            closeButton.addEventListener('click', () => {
+                detailOverlay.classList.remove('open');
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+
+            // Close overlay if clicked outside content
+            detailOverlay.addEventListener('click', (e) => {
+                if (e.target === detailOverlay) {
+                    detailOverlay.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Basic form submission (for demonstration, won't send email without backend)
+            document.querySelector('.contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon. (Note: This is a demo. Form submission requires a backend.)');
+                this.reset(); // Clear the form
+            });
+
+            // --- Section Scroll Animation Logic ---
+            const sections = document.querySelectorAll('.section-padding');
+            const options = {
+                threshold: 0.2 // Trigger when 20% of the section is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Animated Number Counter Logic ---
+            const counterElements = document.querySelectorAll('.counter');
+            const counterOptions = {
+                threshold: 0.7 // Trigger when 70% of the counter card is visible
+            };
+
+            const animateCounter = (entry) => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.dataset.target);
+                    const duration = 2000; // milliseconds
+                    const start = 0;
+                    let startTime = null;
+
+                    const animate = (currentTime) => {
+                        if (!startTime) startTime = currentTime;
+                        const progress = (currentTime - startTime) / duration;
+
+                        if (progress < 1) {
+                            counter.textContent = Math.floor(start + (target - start) * progress);
+                            requestAnimationFrame(animate);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+                    requestAnimationFrame(animate);
+                    counterObserver.unobserve(counter); // Stop observing once animated
+                }
+            };
+
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => animateCounter(entry));
+            }, counterOptions);
+
+            counterElements.forEach(counter => {
+                counterObserver.observe(counter);
+            });
+
+            // --- Hero Carousel Logic ---
+            const heroSlides = [
+                {
+                    headline: "Ignite Your Brand's Digital Future.",
+                    subheadline: "Transforming ambitious visions into market-leading brands through strategic digital marketing, cutting-edge web solutions, and data-driven growth plans."
+                },
+                {
+                    headline: "Strategic Mastery. Unrivaled Digital Impact.",
+                    subheadline: "Crafting bespoke digital blueprints that accelerate growth, define market leadership, and deliver measurable ROI for ambitious businesses."
+                },
+                {
+                    headline: "Innovate. Accelerate. Dominate.",
+                    subheadline: "Your partner in navigating the complex digital landscape, leveraging intelligent marketing and creative solutions to unlock your full potential."
+                }
+            ];
+            const heroImageElements = [
+                document.getElementById('hero-image-1'),
+                document.getElementById('hero-image-2'),
+                document.getElementById('hero-image-3')
+            ];
+            const heroHeadlineElement = document.getElementById('hero-headline');
+            const heroSubheadlineElement = document.getElementById('hero-subheadline');
+
+            let currentHeroSlideIndex = 0;
+
+            const updateHeroContent = (index) => {
+                heroHeadlineElement.classList.remove('active');
+                heroSubheadlineElement.classList.remove('active');
+
+                setTimeout(() => {
+                    heroHeadlineElement.innerHTML = heroSlides[index].headline;
+                    heroSubheadlineElement.innerHTML = heroSlides[index].subheadline;
+                    
+                    heroHeadlineElement.classList.add('active');
+                    heroSubheadlineElement.classList.add('active');
+                }, 1000); // Wait for fade-out to complete before changing text and fading in
+            };
+
+            const startHeroCarousel = () => {
+                // Initial content load
+                updateHeroContent(currentHeroSlideIndex);
+                heroImageElements[currentHeroSlideIndex].classList.add('active');
+
+                setInterval(() => {
+                    const prevIndex = currentHeroSlideIndex;
+                    currentHeroSlideIndex = (currentHeroSlideIndex + 1) % heroImageElements.length;
+
+                    heroImageElements[prevIndex].classList.remove('active');
+                    heroImageElements[currentHeroSlideIndex].classList.add('active');
+                    
+                    updateHeroContent(currentHeroSlideIndex); // Update text with image
+                }, 8000); // Change slide every 8 seconds
+            };
+
+            // --- Run Hero Carousel on DOMContentLoaded ---
+            startHeroCarousel();
+        });
+    </script>
+</body>
+</html>
